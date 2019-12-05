@@ -10,7 +10,6 @@ api = Blueprint('api', __name__, url_prefix='/api')
 def get_employees():
     return jsonify([(lambda men: men.json())(men) for men in Employee.query.all()])
 
-
 @api.route('/employee/id/<int:men_id>')
 def get_employee(men_id):
     employee = Employee.query.get(men_id)
