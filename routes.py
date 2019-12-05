@@ -1,27 +1,27 @@
 from flask import Blueprint, jsonify
 
-from models import Men, db
+from models import Employee, db
 
 index = Blueprint('index', __name__, url_prefix='/')
 api = Blueprint('api', __name__, url_prefix='/api')
 
 
-@api.route('/mens')
-def get_mens():
-    return jsonify([(lambda men: men.json())(men) for men in Men.query.all()])
+@api.route('/employees')
+def get_employees():
+    return jsonify([(lambda men: men.json())(men) for men in Employee.query.all()])
 
-@api.route('/men/id/<int:men_id>')
-def get_men(men_id):
-    men = Men.query.get(men_id)
-    return jsonify(men.json()) if men else ''
+@api.route('/employee/id/<int:men_id>')
+def get_employee(men_id):
+    employee = Employee.query.get(men_id)
+    return jsonify(employee.json()) if employee else ''
 
 
-@api.route('/men/name/<string:men_name>')
-def put_men(men_name, pn):
-    men = Men(name=men_name)
-    db.session.add(men)
+@api.route('/employee/name/<string:employee_name>')
+def put_men(employee_name, pn):
+    employee = Employee(name=employee_name)
+    db.session.add(employee)
     db.session.commit()
-    return jsonify(men.json())
+    return jsonify(employee.json())
 
 @index.route('/')
 @index.route('/index')
@@ -33,7 +33,7 @@ def get_index():
                 </title>
                 <body>
                     <h3>API:</h3>
-                    <a href="./api/mens">Mens</a>
+                    <a href="./api/employees">Employee</a>
                 </body>
             </html>
            '''
