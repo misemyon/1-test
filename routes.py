@@ -10,14 +10,14 @@ api = Blueprint('api', __name__, url_prefix='/api')
 def get_employees():
     return jsonify([(lambda men: men.json())(men) for men in Employee.query.all()])
 
+
 @api.route('/employee/id/<int:men_id>')
 def get_employee(men_id):
     employee = Employee.query.get(men_id)
     return jsonify(employee.json()) if employee else ''
 
-
 @api.route('/employee/name/<string:employee_name>')
-def put_men(employee_name, pn):
+def put_men(employee_name):
     employee = Employee(name=employee_name)
     db.session.add(employee)
     db.session.commit()
